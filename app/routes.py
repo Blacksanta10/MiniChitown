@@ -1,12 +1,17 @@
 # Routes for the Flask application
 
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 
 from app.services.cta import get_stops
 
 main = Blueprint('main', __name__)
 
-@main.route("/api/stops")
+@main.route("/")
+def index():
+    return render_template("index.html")
+
+
+@main.route("/api/stops") 
 def stops():
     data = get_stops()
 
