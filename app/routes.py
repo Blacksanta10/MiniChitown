@@ -1,14 +1,22 @@
 # Routes for the Flask application
 
-from flask import Blueprint, jsonify, render_template
+import os
 
+from flask import Blueprint, jsonify, render_template
 from app.services.cta import get_stops
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
+
+MAPBOX_API_KEY = os.getenv("MAPBOX_API_KEY")  # Get the Mapbox API key from environment variables
+
+
 
 main = Blueprint('main', __name__)
 
 @main.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", mapbox_api_key=MAPBOX_API_KEY)
 
 
 @main.route("/api/stops") 
